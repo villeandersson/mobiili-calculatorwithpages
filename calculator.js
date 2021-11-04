@@ -1,12 +1,8 @@
+import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, TextInput, Alert, FlatList } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { History } from './history';
 
-const Stack = createStackNavigator();
-
-function CalculatorScreen({ navigation }) {
+export default function Calculator() {
   const [eka, setEka] = useState ("");
   const [toka, setToka] = useState ("");
   const [vastaus, setVastaus] = useState ("");
@@ -32,37 +28,10 @@ function CalculatorScreen({ navigation }) {
         <TextInput style={styles.input}onChangeText={eka=>setEka(eka)}value={eka} keyboardType="numeric"/>
         <TextInput style={styles.input}onChangeText={toka=>setToka(toka)}value={toka} keyboardType="numeric"/>
         <View style={styles.buttons}>
-          <Button onPress={button1Pressed} title=" + " />
-          <Button onPress={button2Pressed} title=" - " />
-          <Button
-        title="History"
-        onPress={() => navigation.navigate('History', {data})}
-      />
+          <Button onPress={button1Pressed} title="+" />
+          <Button onPress={button2Pressed} title="-" />
         </View>
       </View>
-  );
-}
-
-function HistoryScreen({route, navigation}) {
-  const {data} = route.params;
-  return (
-      <View style={styles.container}>
-        <View style={styles.list}>
-        <Text>History: </Text>
-        <FlatList data ={data}renderItem={({item})=><Text>{item.value}</Text>}/>
-        </View>
-      </View>
-  );
-}
-
-export default function App() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Calculator" component={CalculatorScreen} />
-        <Stack.Screen name="History" component={HistoryScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
   );
 }
 
@@ -71,7 +40,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    paddingTop: 150
   },
   input: {
     width:200,
@@ -79,13 +48,12 @@ const styles = StyleSheet.create({
     borderWidth:1
   },
   buttons: {
-    width: 140,
+    width: 60,
     paddingTop: 15,
     flexDirection: 'row',
-    justifyContent: 'space-around'
-},
-list: {
-  marginTop: 15,
-  alignItems: 'center'
-}
+    justifyContent: 'space-between'
+  },
+  list: {
+    marginTop: 15
+  }
 });
